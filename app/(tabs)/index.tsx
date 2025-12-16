@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { LinearGradient } from 'expo-linear-gradient';
 import React, { useEffect, useState } from 'react';
-import { Alert, Platform, StyleSheet, TouchableOpacity } from 'react-native';
+import { Alert, Platform, SafeAreaView, StyleSheet, TouchableOpacity } from 'react-native';
 
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
@@ -52,35 +52,40 @@ export default function HomeScreen() {
   };
 
   return (
-    <LinearGradient
-      colors={['#FF24F8', '#24CCFF']}
-      locations={[0, 0.6]}
-      start={{ x: 0, y: 1 }}
-      end={{ x: 1, y: 0 }}
-      style={styles.container}
-    >
-      <ThemedText style={styles.heading}>COUNT TO ONE MILLION!</ThemedText>
-      <ThemedView style={styles.centerContent}>
-        <ThemedText style={styles.countText}>Count: {total}</ThemedText>
-        <ThemedText style={styles.percentageText}>Percentage: {((total / 1000000) * 100).toFixed(4)}%</ThemedText>
-        <TouchableOpacity onPress={incrementTotal} style={styles.button}>
-          <ThemedText style={styles.buttonText}>Add more clicks</ThemedText>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={clearTotal} style={[styles.button, styles.clearButton]}>
-          <ThemedText>Clear Counter</ThemedText>
-        </TouchableOpacity>
-      </ThemedView>
-    </LinearGradient>
+    <SafeAreaView style={styles.safeArea}>
+      <LinearGradient
+        colors={['#FF24F8', '#24CCFF']}
+        locations={[0, 0.6]}
+        start={{ x: 0, y: 1 }}
+        end={{ x: 1, y: 0 }}
+        style={styles.container}
+      >
+        <ThemedText style={styles.heading}>COUNT TO ONE MILLION!</ThemedText>
+        <ThemedView style={styles.centerContent}>
+          <ThemedText style={styles.countText}>Count: {total}</ThemedText>
+          <ThemedText style={styles.percentageText}>Percentage: {((total / 1000000) * 100).toFixed(4)}%</ThemedText>
+          <TouchableOpacity onPress={incrementTotal} style={styles.button}>
+            <ThemedText style={styles.buttonText}>Add more clicks</ThemedText>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={clearTotal} style={[styles.button, styles.clearButton]}>
+            <ThemedText>Clear Counter</ThemedText>
+          </TouchableOpacity>
+        </ThemedView>
+      </LinearGradient>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+  },
   container: {
     flex: 1,
     justifyContent: 'flex-start',
     alignItems: 'center',
     gap: 20,
-    paddingTop: 60,
+    paddingTop: 40,
   },
   button: {
     backgroundColor: '#007AFF',
@@ -103,7 +108,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    gap: 20,
+    gap: 30,
     backgroundColor: 'transparent',
   },
   clearButton: {
@@ -113,6 +118,9 @@ const styles = StyleSheet.create({
     color: '#333',
     fontSize: 48,
     fontWeight: 'bold',
+    paddingVertical: 20,
+    lineHeight: 88,
+    textAlignVertical: 'center',
   },
   percentageText: {
     color: 'white',
