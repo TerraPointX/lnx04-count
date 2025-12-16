@@ -64,7 +64,7 @@ export default function HomeScreen() {
         <ThemedText style={styles.countText}>Count: {total}</ThemedText>
         <ThemedText style={styles.percentageText}>Percentage: {((total / 1000000) * 100).toFixed(4)}%</ThemedText>
         <TouchableOpacity onPress={incrementTotal} style={styles.button}>
-          <ThemedText>Add 1</ThemedText>
+          <ThemedText style={styles.buttonText}>Add more clicks</ThemedText>
         </TouchableOpacity>
         <TouchableOpacity onPress={clearTotal} style={[styles.button, styles.clearButton]}>
           <ThemedText>Clear Counter</ThemedText>
@@ -84,9 +84,20 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: '#007AFF',
-    padding: 10,
+    padding: 20,
     borderRadius: 5,
     alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.5,
+    shadowRadius: 6,
+    elevation: 12,
+    borderWidth: 2,
+    borderColor: '#FFFFFF',
+  },
+  buttonText: {
+    fontSize: 32,
+    fontWeight: 'bold',
   },
   centerContent: {
     flex: 1,
