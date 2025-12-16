@@ -61,8 +61,8 @@ export default function HomeScreen() {
     >
       <ThemedText style={styles.heading}>COUNT TO ONE MILLION!</ThemedText>
       <ThemedView style={styles.centerContent}>
-        <ThemedText style={styles.text}>Your count so far: {total}</ThemedText>
-        <ThemedText style={styles.text}>Percentage complete: {((total / 1000000) * 100).toFixed(6)}%</ThemedText>
+        <ThemedText style={styles.countText}>Count: {total}</ThemedText>
+        <ThemedText style={styles.percentageText}>Percentage: {((total / 1000000) * 100).toFixed(4)}%</ThemedText>
         <TouchableOpacity onPress={incrementTotal} style={styles.button}>
           <ThemedText>Add 1</ThemedText>
         </TouchableOpacity>
@@ -97,6 +97,16 @@ const styles = StyleSheet.create({
   },
   clearButton: {
     backgroundColor: '#FF3B30',
+  },
+  countText: {
+    color: '#333',
+    fontSize: 48,
+    fontWeight: 'bold',
+  },
+  percentageText: {
+    color: 'white',
+    fontSize: 17,
+    fontWeight: '300',
   },
   heading: {
     color: 'white',
