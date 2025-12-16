@@ -8,19 +8,34 @@ import { ThemedView } from '@/components/themed-view';
 
 export default function HomeScreen() {
   const [total, setTotal] = useState(0);
+  const [firstClickDate, setFirstClickDate] = useState<number | null>(null);
+  const [tick, setTick] = useState(0);
 
   useEffect(() => {
-    const loadTotal = async () => {
+    const loadData = async () => {
       const savedTotal = await AsyncStorage.getItem('total');
       if (savedTotal !== null) setTotal(parseInt(savedTotal));
+      const savedFirstClick = await AsyncStorage.getItem('firstClickDate');
+      if (savedFirstClick !== null) setFirstClickDate(parseInt(savedFirstClick));
     };
-    loadTotal();
+    loadData();
+  }, []);
+
+  useEffect(() => {
+    const interval = setInterval(() => setTick(t => t + 1), 1000);
+    return () => clearInterval(interval);
   }, []);
 
   const incrementTotal = async () => {
     const newTotal = total + 1;
     setTotal(newTotal);
     await AsyncStorage.setItem('total', newTotal.toString());
+
+    if (firstClickDate === null) {
+      const now = Date.now();
+      setFirstClickDate(now);
+      await AsyncStorage.setItem('firstClickDate', now.toString());
+    }
   };
 
   const clearTotal = () => {
@@ -64,11 +79,17 @@ export default function HomeScreen() {
         <ThemedView style={styles.centerContent}>
           <ThemedText style={styles.countText}>Count: {total}</ThemedText>
           <ThemedText style={styles.percentageText}>Percentage: {((total / 1000000) * 100).toFixed(4)}%</ThemedText>
+          <ThemedText>Tick: {tick}</ThemedText>
           <TouchableOpacity onPress={incrementTotal} style={styles.button}>
             <ThemedText style={styles.buttonText}>Add more clicks</ThemedText>
           </TouchableOpacity>
+          <ThemedView style={styles.statsContainer}>
+            <ThemedText style={styles.statsText}>
+              Counting for {firstClickDate ? ((Date.now() - firstClickDate) / (1000 * 60 * 60 * 24)).toFixed(8) : 0} days.
+            </ThemedText>
+          </ThemedView>
           <TouchableOpacity onPress={clearTotal} style={[styles.button, styles.clearButton]}>
-            <ThemedText>Clear Counter</ThemedText>
+            <ThemedText style={styles.clearButtonText}>Clear Counter</ThemedText>
           </TouchableOpacity>
         </ThemedView>
       </LinearGradient>
@@ -88,7 +109,7 @@ const styles = StyleSheet.create({
     paddingTop: 40,
   },
   button: {
-    backgroundColor: '#2ccc34ff',
+    backgroundColor: 'transparent',
     padding: 20,
     borderRadius: 5,
     alignItems: 'center',
@@ -104,6 +125,9 @@ const styles = StyleSheet.create({
     fontSize: 32,
     fontWeight: 'bold',
   },
+  clearButtonText: {
+    color: 'white',
+  },
   centerContent: {
     flex: 1,
     justifyContent: 'center',
@@ -113,6 +137,7 @@ const styles = StyleSheet.create({
   },
   clearButton: {
     backgroundColor: '#FF3B30',
+    padding: 15,
   },
   countText: {
     color: '#333',
@@ -137,6 +162,15 @@ const styles = StyleSheet.create({
     textShadowOffset: { width: 2, height: 2 },
     textShadowRadius: 4,
     paddingTop: 20,
+  },
+  statsContainer: {
+    gap: 8,
+    backgroundColor: 'transparent',
+  },
+  statsText: {
+    color: 'white',
+    fontSize: 14,
+    fontWeight: 'normal',
   },
   text: {
     color: 'white',
