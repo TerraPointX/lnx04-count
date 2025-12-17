@@ -12,6 +12,21 @@ export default function HomeScreen() {
   const [tick, setTick] = useState(0);
   const [daysElapsed, setDaysElapsed] = useState(0);
 
+  const statuses = [
+    "Peasant",
+    "Worker",
+    "Engineer",
+    "Soldier",
+    "Gladiator",
+    "Warrior",
+    "Knight",
+    "King",
+    "Millionaire",
+    "Billionaire",
+    "Space Traveller",
+    "Interstellar Commander"
+  ];
+
   useEffect(() => {
     const loadData = async () => {
       const savedTotal = await AsyncStorage.getItem('total');
@@ -100,89 +115,17 @@ export default function HomeScreen() {
           </ThemedView>
           <View style={styles.rewardTable}>
             <View style={styles.rewardRow}>
-              <ThemedText style={styles.rewardDesc}>Ave clicks above 100</ThemedText>
-              <ThemedText style={styles.rewardBadge}>
-                {daysElapsed > 0 && (total / daysElapsed) > 100 ? '⭐' : ''}
-              </ThemedText>
+              <ThemedText style={styles.rewardCell}>Ave. Clicks per day</ThemedText>
+              <ThemedText style={styles.rewardCell}>Status</ThemedText>
+              <ThemedText style={styles.rewardCell}>Reward</ThemedText>
             </View>
-            <View style={styles.rewardRow}>
-              <ThemedText style={styles.rewardDesc}>Ave clicks above 120</ThemedText>
-              <ThemedText style={styles.rewardBadge}>
-                {daysElapsed > 0 && (total / daysElapsed) > 120 ? '🌟' : ''}
-              </ThemedText>
-            </View>
-            <View style={styles.rewardRow}>
-              <ThemedText style={styles.rewardDesc}>Ave clicks above 150</ThemedText>
-              <ThemedText style={styles.rewardBadge}>
-                {daysElapsed > 0 && (total / daysElapsed) > 150 ? '🌱' : ''}
-              </ThemedText>
-            </View>
-            <View style={styles.rewardRow}>
-              <ThemedText style={styles.rewardDesc}>Ave clicks above 160</ThemedText>
-              <ThemedText style={styles.rewardBadge}>
-                {daysElapsed > 0 && (total / daysElapsed) > 160 ? '🍎' : ''}
-              </ThemedText>
-            </View>
-            <View style={styles.rewardRow}>
-              <ThemedText style={styles.rewardDesc}>Ave clicks above 170</ThemedText>
-              <ThemedText style={styles.rewardBadge}>
-                {daysElapsed > 0 && (total / daysElapsed) > 170 ? '🔧' : ''}
-              </ThemedText>
-            </View>
-            <View style={styles.rewardRow}>
-              <ThemedText style={styles.rewardDesc}>Ave clicks above 180</ThemedText>
-              <ThemedText style={styles.rewardBadge}>
-                {daysElapsed > 0 && (total / daysElapsed) > 180 ? '🛡️' : ''}
-              </ThemedText>
-            </View>
-            <View style={styles.rewardRow}>
-              <ThemedText style={styles.rewardDesc}>Ave clicks above 190</ThemedText>
-              <ThemedText style={styles.rewardBadge}>
-                {daysElapsed > 0 && (total / daysElapsed) > 190 ? '🪓' : ''}
-              </ThemedText>
-            </View>
-            <View style={styles.rewardRow}>
-              <ThemedText style={styles.rewardDesc}>Ave clicks above 200</ThemedText>
-              <ThemedText style={styles.rewardBadge}>
-                {daysElapsed > 0 && (total / daysElapsed) > 200 ? '⚔️' : ''}
-              </ThemedText>
-            </View>
-            <View style={styles.rewardRow}>
-              <ThemedText style={styles.rewardDesc}>Ave clicks above 210</ThemedText>
-              <ThemedText style={styles.rewardBadge}>
-                {daysElapsed > 0 && (total / daysElapsed) > 210 ? '🏰' : ''}
-              </ThemedText>
-            </View>
-            <View style={styles.rewardRow}>
-              <ThemedText style={styles.rewardDesc}>Ave clicks above 220</ThemedText>
-              <ThemedText style={styles.rewardBadge}>
-                {daysElapsed > 0 && (total / daysElapsed) > 220 ? '👑' : ''}
-              </ThemedText>
-            </View>
-            <View style={styles.rewardRow}>
-              <ThemedText style={styles.rewardDesc}>Ave clicks above 230</ThemedText>
-              <ThemedText style={styles.rewardBadge}>
-                {daysElapsed > 0 && (total / daysElapsed) > 230 ? '✨' : ''}
-              </ThemedText>
-            </View>
-            <View style={styles.rewardRow}>
-              <ThemedText style={styles.rewardDesc}>Ave clicks above 240</ThemedText>
-              <ThemedText style={styles.rewardBadge}>
-                {daysElapsed > 0 && (total / daysElapsed) > 240 ? '💫' : ''}
-              </ThemedText>
-            </View>
-            <View style={styles.rewardRow}>
-              <ThemedText style={styles.rewardDesc}>Ave clicks above 250</ThemedText>
-              <ThemedText style={styles.rewardBadge}>
-                {daysElapsed > 0 && (total / daysElapsed) > 250 ? '🚀' : ''}
-              </ThemedText>
-            </View>
-            <View style={styles.rewardRow}>
-              <ThemedText style={styles.rewardDesc}>Ave clicks above 260</ThemedText>
-              <ThemedText style={styles.rewardBadge}>
-                {daysElapsed > 0 && (total / daysElapsed) > 260 ? '👽' : ''}
-              </ThemedText>
-            </View>
+            {Array.from({ length: 12 }, (_, i) => 50 + i * 10).map((threshold, i) => (
+              <View key={threshold} style={styles.rewardRow}>
+                <ThemedText style={styles.rewardCell}>{threshold}</ThemedText>
+                <ThemedText style={styles.rewardCell}>{statuses[i]}</ThemedText>
+                <ThemedText style={styles.rewardCell}>-</ThemedText>
+              </View>
+            ))}
           </View>
           <TouchableOpacity onPress={clearTotal} style={[styles.button, styles.clearButton]}>
             <ThemedText style={styles.clearButtonText}>Clear Counter</ThemedText>
@@ -287,6 +230,13 @@ const styles = StyleSheet.create({
     fontSize: 24,
     minWidth: 40,
     textAlign: 'right',
+  },
+  rewardCell: {
+    flex: 1,
+    textAlign: 'center',
+    color: 'white',
+    fontSize: 16,
+    lineHeight: 22,
   },
   heading: {
     color: 'white',
