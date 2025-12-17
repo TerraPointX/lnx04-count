@@ -87,13 +87,15 @@ export default function HomeScreen() {
         <ThemedView style={styles.centerContent}>
           <ThemedText style={styles.countText}>Count: {total}</ThemedText>
           <ThemedText style={styles.percentageText}>Percentage: {((total / 1000000) * 100).toFixed(4)}%</ThemedText>
-          <ThemedText>Tick: {tick}</ThemedText>
           <TouchableOpacity onPress={incrementTotal} style={styles.button}>
             <ThemedText style={styles.buttonText}>Add more clicks</ThemedText>
           </TouchableOpacity>
           <ThemedView style={styles.statsContainer}>
             <ThemedText style={styles.statsText}>
               Days since first click: {daysElapsed.toFixed(5)} DAYS
+            </ThemedText>
+            <ThemedText style={styles.statsText}>
+              Average clicks per day: {daysElapsed > 0 ? (total / daysElapsed).toFixed(3) : 0} CLICKS
             </ThemedText>
           </ThemedView>
           <TouchableOpacity onPress={clearTotal} style={[styles.button, styles.clearButton]}>
