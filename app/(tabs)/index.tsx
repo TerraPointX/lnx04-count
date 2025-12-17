@@ -10,19 +10,27 @@ export default function HomeScreen() {
   const [total, setTotal] = useState(0);
   const [firstClickDate, setFirstClickDate] = useState<number | null>(null);
   const [tick, setTick] = useState(0);
+  const [daysElapsed, setDaysElapsed] = useState(0);
 
   useEffect(() => {
     const loadData = async () => {
       const savedTotal = await AsyncStorage.getItem('total');
       if (savedTotal !== null) setTotal(parseInt(savedTotal));
       const savedFirstClick = await AsyncStorage.getItem('firstClickDate');
-      if (savedFirstClick !== null) setFirstClickDate(parseInt(savedFirstClick));
+      if (savedFirstClick !== null) {
+        const parsedDate = parseInt(savedFirstClick);
+        setFirstClickDate(parsedDate);
+        setDaysElapsed((Date.now() - parsedDate) / (1000 * 60 * 60 * 24));
+      }
     };
     loadData();
   }, []);
 
   useEffect(() => {
-    const interval = setInterval(() => setTick(t => t + 1), 1000);
+    const interval = setInterval(() => {
+      setTick(t => t + 1);
+      setDaysElapsed(d => d + 1 / 86400);
+    }, 1000);
     return () => clearInterval(interval);
   }, []);
 
@@ -85,7 +93,7 @@ export default function HomeScreen() {
           </TouchableOpacity>
           <ThemedView style={styles.statsContainer}>
             <ThemedText style={styles.statsText}>
-              Counting for {firstClickDate ? ((Date.now() - firstClickDate) / (1000 * 60 * 60 * 24)).toFixed(8) : 0} days.
+              Days since first click: {daysElapsed.toFixed(5)} DAYS
             </ThemedText>
           </ThemedView>
           <TouchableOpacity onPress={clearTotal} style={[styles.button, styles.clearButton]}>
