@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { LinearGradient } from 'expo-linear-gradient';
 import React, { useEffect, useState } from 'react';
-import { Alert, Platform, SafeAreaView, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Alert, Platform, SafeAreaView, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
 
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
@@ -83,22 +83,8 @@ export default function HomeScreen() {
         end={{ x: 1, y: 0 }}
         style={styles.container}
       >
-        <ThemedText style={styles.heading}>COUNT TO ONE MILLION!</ThemedText>
-        <ThemedView style={styles.centerContent}>
-          <View style={styles.rewardTable}>
-            <View style={styles.rewardRow}>
-              <ThemedText style={styles.rewardDesc}>Ave clicks above 100</ThemedText>
-              <ThemedText style={styles.rewardBadge}>
-                {daysElapsed > 0 && (total / daysElapsed) > 100 ? '⭐' : ''}
-              </ThemedText>
-            </View>
-            <View style={styles.rewardRow}>
-              <ThemedText style={styles.rewardDesc}>Ave clicks above 120</ThemedText>
-              <ThemedText style={styles.rewardBadge}>
-                {daysElapsed > 0 && (total / daysElapsed) > 120 ? '🌟' : ''}
-              </ThemedText>
-            </View>
-          </View>
+        <ScrollView style={styles.scrollView} contentContainerStyle={styles.scrollContent}>
+          <ThemedText style={styles.heading}>COUNT TO ONE MILLION!</ThemedText>
           <ThemedText style={styles.countText}>Count: {total}</ThemedText>
           <ThemedText style={styles.percentageText}>Percentage of 1 Million: {((total / 1000000) * 100).toFixed(4)} %</ThemedText>
           <TouchableOpacity onPress={incrementTotal} style={styles.button}>
@@ -112,10 +98,96 @@ export default function HomeScreen() {
               Average clicks per day: {daysElapsed > 0 ? (total / daysElapsed).toFixed(2) : 0} CLICKS
             </ThemedText>
           </ThemedView>
+          <View style={styles.rewardTable}>
+            <View style={styles.rewardRow}>
+              <ThemedText style={styles.rewardDesc}>Ave clicks above 100</ThemedText>
+              <ThemedText style={styles.rewardBadge}>
+                {daysElapsed > 0 && (total / daysElapsed) > 100 ? '⭐' : ''}
+              </ThemedText>
+            </View>
+            <View style={styles.rewardRow}>
+              <ThemedText style={styles.rewardDesc}>Ave clicks above 120</ThemedText>
+              <ThemedText style={styles.rewardBadge}>
+                {daysElapsed > 0 && (total / daysElapsed) > 120 ? '🌟' : ''}
+              </ThemedText>
+            </View>
+            <View style={styles.rewardRow}>
+              <ThemedText style={styles.rewardDesc}>Ave clicks above 150</ThemedText>
+              <ThemedText style={styles.rewardBadge}>
+                {daysElapsed > 0 && (total / daysElapsed) > 150 ? '🌱' : ''}
+              </ThemedText>
+            </View>
+            <View style={styles.rewardRow}>
+              <ThemedText style={styles.rewardDesc}>Ave clicks above 160</ThemedText>
+              <ThemedText style={styles.rewardBadge}>
+                {daysElapsed > 0 && (total / daysElapsed) > 160 ? '🍎' : ''}
+              </ThemedText>
+            </View>
+            <View style={styles.rewardRow}>
+              <ThemedText style={styles.rewardDesc}>Ave clicks above 170</ThemedText>
+              <ThemedText style={styles.rewardBadge}>
+                {daysElapsed > 0 && (total / daysElapsed) > 170 ? '🔧' : ''}
+              </ThemedText>
+            </View>
+            <View style={styles.rewardRow}>
+              <ThemedText style={styles.rewardDesc}>Ave clicks above 180</ThemedText>
+              <ThemedText style={styles.rewardBadge}>
+                {daysElapsed > 0 && (total / daysElapsed) > 180 ? '🛡️' : ''}
+              </ThemedText>
+            </View>
+            <View style={styles.rewardRow}>
+              <ThemedText style={styles.rewardDesc}>Ave clicks above 190</ThemedText>
+              <ThemedText style={styles.rewardBadge}>
+                {daysElapsed > 0 && (total / daysElapsed) > 190 ? '🪓' : ''}
+              </ThemedText>
+            </View>
+            <View style={styles.rewardRow}>
+              <ThemedText style={styles.rewardDesc}>Ave clicks above 200</ThemedText>
+              <ThemedText style={styles.rewardBadge}>
+                {daysElapsed > 0 && (total / daysElapsed) > 200 ? '⚔️' : ''}
+              </ThemedText>
+            </View>
+            <View style={styles.rewardRow}>
+              <ThemedText style={styles.rewardDesc}>Ave clicks above 210</ThemedText>
+              <ThemedText style={styles.rewardBadge}>
+                {daysElapsed > 0 && (total / daysElapsed) > 210 ? '🏰' : ''}
+              </ThemedText>
+            </View>
+            <View style={styles.rewardRow}>
+              <ThemedText style={styles.rewardDesc}>Ave clicks above 220</ThemedText>
+              <ThemedText style={styles.rewardBadge}>
+                {daysElapsed > 0 && (total / daysElapsed) > 220 ? '👑' : ''}
+              </ThemedText>
+            </View>
+            <View style={styles.rewardRow}>
+              <ThemedText style={styles.rewardDesc}>Ave clicks above 230</ThemedText>
+              <ThemedText style={styles.rewardBadge}>
+                {daysElapsed > 0 && (total / daysElapsed) > 230 ? '✨' : ''}
+              </ThemedText>
+            </View>
+            <View style={styles.rewardRow}>
+              <ThemedText style={styles.rewardDesc}>Ave clicks above 240</ThemedText>
+              <ThemedText style={styles.rewardBadge}>
+                {daysElapsed > 0 && (total / daysElapsed) > 240 ? '💫' : ''}
+              </ThemedText>
+            </View>
+            <View style={styles.rewardRow}>
+              <ThemedText style={styles.rewardDesc}>Ave clicks above 250</ThemedText>
+              <ThemedText style={styles.rewardBadge}>
+                {daysElapsed > 0 && (total / daysElapsed) > 250 ? '🚀' : ''}
+              </ThemedText>
+            </View>
+            <View style={styles.rewardRow}>
+              <ThemedText style={styles.rewardDesc}>Ave clicks above 260</ThemedText>
+              <ThemedText style={styles.rewardBadge}>
+                {daysElapsed > 0 && (total / daysElapsed) > 260 ? '👽' : ''}
+              </ThemedText>
+            </View>
+          </View>
           <TouchableOpacity onPress={clearTotal} style={[styles.button, styles.clearButton]}>
             <ThemedText style={styles.clearButtonText}>Clear Counter</ThemedText>
           </TouchableOpacity>
-        </ThemedView>
+        </ScrollView>
       </LinearGradient>
     </SafeAreaView>
   );
@@ -127,10 +199,14 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    justifyContent: 'flex-start',
+  },
+  scrollView: {
+    flex: 1,
+  },
+  scrollContent: {
     alignItems: 'center',
-    gap: 20,
-    paddingTop: 40,
+    paddingTop: 20,
+    gap: 10,
   },
   button: {
     backgroundColor: 'transparent',
@@ -153,22 +229,20 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   centerContent: {
-    flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
-    gap: 30,
+    gap: 20,
     backgroundColor: 'transparent',
   },
   clearButton: {
     backgroundColor: '#FF3B30',
-    padding: 15,
+    padding: 8,
   },
   countText: {
     color: '#333',
     fontSize: 48,
     fontWeight: 'bold',
-    paddingVertical: 20,
-    lineHeight: 88,
+    paddingVertical: 60,
+    lineHeight: 150,
     textAlignVertical: 'center',
   },
   percentageText: {
@@ -222,7 +296,6 @@ const styles = StyleSheet.create({
     textShadowColor: 'rgba(0, 0, 0, 0.9)',
     textShadowOffset: { width: 3, height: 3 },
     textShadowRadius: 4,
-    paddingTop: 20,
   },
   statsContainer: {
     gap: 8,
