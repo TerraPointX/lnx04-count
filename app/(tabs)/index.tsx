@@ -205,8 +205,8 @@ const styles = StyleSheet.create({
   },
   scrollContent: {
     alignItems: 'center',
-    paddingTop: 20,
-    gap: 10,
+    paddingTop: 50,
+    gap: 40,
   },
   button: {
     backgroundColor: 'transparent',
@@ -241,12 +241,13 @@ const styles = StyleSheet.create({
     color: '#333',
     fontSize: 48,
     fontWeight: 'bold',
-    paddingVertical: 60,
-    lineHeight: 150,
+    paddingVertical: 10,
+    lineHeight: 60,
     textAlignVertical: 'center',
   },
   percentageText: {
-    color: "#78058fff",
+    color: "#57435fff",
+    marginTop: -50,
     fontSize: 17,
     fontWeight: '300',
   },
@@ -296,6 +297,7 @@ const styles = StyleSheet.create({
     textShadowColor: 'rgba(0, 0, 0, 0.9)',
     textShadowOffset: { width: 3, height: 3 },
     textShadowRadius: 4,
+    marginBottom: 31,
   },
   statsContainer: {
     gap: 8,
