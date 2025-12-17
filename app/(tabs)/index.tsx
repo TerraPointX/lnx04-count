@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { LinearGradient } from 'expo-linear-gradient';
 import React, { useEffect, useState } from 'react';
-import { Alert, Platform, SafeAreaView, StyleSheet, TouchableOpacity } from 'react-native';
+import { Alert, Platform, SafeAreaView, StyleSheet, TouchableOpacity, View } from 'react-native';
 
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
@@ -85,8 +85,22 @@ export default function HomeScreen() {
       >
         <ThemedText style={styles.heading}>COUNT TO ONE MILLION!</ThemedText>
         <ThemedView style={styles.centerContent}>
+          <View style={styles.rewardTable}>
+            <View style={styles.rewardRow}>
+              <ThemedText style={styles.rewardDesc}>Ave clicks above 100</ThemedText>
+              <ThemedText style={styles.rewardBadge}>
+                {daysElapsed > 0 && (total / daysElapsed) > 100 ? '⭐' : ''}
+              </ThemedText>
+            </View>
+            <View style={styles.rewardRow}>
+              <ThemedText style={styles.rewardDesc}>Ave clicks above 120</ThemedText>
+              <ThemedText style={styles.rewardBadge}>
+                {daysElapsed > 0 && (total / daysElapsed) > 120 ? '🌟' : ''}
+              </ThemedText>
+            </View>
+          </View>
           <ThemedText style={styles.countText}>Count: {total}</ThemedText>
-          <ThemedText style={styles.percentageText}>Percentage: {((total / 1000000) * 100).toFixed(4)}%</ThemedText>
+          <ThemedText style={styles.percentageText}>Percentage of 1 Million: {((total / 1000000) * 100).toFixed(4)} %</ThemedText>
           <TouchableOpacity onPress={incrementTotal} style={styles.button}>
             <ThemedText style={styles.buttonText}>Add more clicks</ThemedText>
           </TouchableOpacity>
@@ -95,7 +109,7 @@ export default function HomeScreen() {
               Days since first click: {daysElapsed.toFixed(5)} DAYS
             </ThemedText>
             <ThemedText style={styles.statsText}>
-              Average clicks per day: {daysElapsed > 0 ? (total / daysElapsed).toFixed(3) : 0} CLICKS
+              Average clicks per day: {daysElapsed > 0 ? (total / daysElapsed).toFixed(2) : 0} CLICKS
             </ThemedText>
           </ThemedView>
           <TouchableOpacity onPress={clearTotal} style={[styles.button, styles.clearButton]}>
@@ -158,9 +172,46 @@ const styles = StyleSheet.create({
     textAlignVertical: 'center',
   },
   percentageText: {
-    color: 'white',
+    color: "#78058fff",
     fontSize: 17,
     fontWeight: '300',
+  },
+  rewardText: {
+    color: 'white',
+    fontSize: 20,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    borderWidth: 1,
+    borderColor: 'white',
+    padding: 10,
+  },
+  rewardTable: {
+    width: '100%',
+    borderWidth: 1,
+    borderColor: '#ddd',
+    borderRadius: 8,
+    overflow: 'hidden',
+    backgroundColor: 'transparent',
+  },
+  rewardRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingHorizontal: 16,
+    paddingVertical: 14,
+    borderBottomWidth: 1,
+    borderBottomColor: '#eee',
+  },
+  rewardDesc: {
+    flex: 1,
+    fontSize: 16,
+    lineHeight: 22,
+    marginRight: 16,
+    color: 'white',
+  },
+  rewardBadge: {
+    fontSize: 24,
+    minWidth: 40,
+    textAlign: 'right',
   },
   heading: {
     color: 'white',
@@ -168,8 +219,8 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontStyle: 'italic',
     textAlign: 'center',
-    textShadowColor: 'rgba(0, 0, 0, 0.5)',
-    textShadowOffset: { width: 2, height: 2 },
+    textShadowColor: 'rgba(0, 0, 0, 0.9)',
+    textShadowOffset: { width: 3, height: 3 },
     textShadowRadius: 4,
     paddingTop: 20,
   },
