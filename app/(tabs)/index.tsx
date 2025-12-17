@@ -12,6 +12,8 @@ export default function HomeScreen() {
   const [tick, setTick] = useState(0);
   const [daysElapsed, setDaysElapsed] = useState(0);
 
+  const averageClicks = daysElapsed > 0 ? total / daysElapsed : 0;
+
   const statuses = [
     "Peasant",
     "Worker",
@@ -26,6 +28,19 @@ export default function HomeScreen() {
     "Space Traveller",
     "Interstellar Commander"
   ];
+
+  const emojis = ['🌱', '🍎', '🔧', '🛡️', '🪓', '⚔️', '🏰', '👑', '✨', '💫', '🚀', '👽'];
+
+  const thresholds = Array.from({ length: 12 }, (_, i) => 50 + i * 10);
+
+  const getCurrentStatus = () => {
+    for (let i = thresholds.length - 1; i >= 0; i--) {
+      if (averageClicks >= thresholds[i]) {
+        return { status: statuses[i], emoji: emojis[i] };
+      }
+    }
+    return { status: statuses[0], emoji: emojis[0] };
+  };
 
   useEffect(() => {
     const loadData = async () => {
@@ -100,6 +115,7 @@ export default function HomeScreen() {
       >
         <ScrollView style={styles.scrollView} contentContainerStyle={styles.scrollContent}>
           <ThemedText style={styles.heading}>COUNT TO ONE MILLION!</ThemedText>
+          <ThemedText style={styles.statusText}>Your current status is {getCurrentStatus().status} {getCurrentStatus().emoji}</ThemedText>
           <ThemedText style={styles.countText}>Count: {total}</ThemedText>
           <ThemedText style={styles.percentageText}>Percentage of 1 Million: {((total / 1000000) * 100).toFixed(4)} %</ThemedText>
           <TouchableOpacity onPress={incrementTotal} style={styles.button}>
@@ -110,7 +126,7 @@ export default function HomeScreen() {
               Days since first click: {daysElapsed.toFixed(5)} DAYS
             </ThemedText>
             <ThemedText style={styles.statsText}>
-              Average clicks per day: {daysElapsed > 0 ? (total / daysElapsed).toFixed(2) : 0} CLICKS
+              Average clicks per day: {averageClicks.toFixed(2)} CLICKS
             </ThemedText>
           </ThemedView>
           <View style={styles.rewardTable}>
@@ -123,7 +139,7 @@ export default function HomeScreen() {
               <View key={threshold} style={styles.rewardRow}>
                 <ThemedText style={styles.rewardCell}>{threshold}</ThemedText>
                 <ThemedText style={styles.rewardCell}>{statuses[i]}</ThemedText>
-                <ThemedText style={styles.rewardCell}>-</ThemedText>
+                <ThemedText style={styles.rewardCell}>{averageClicks >= threshold ? emojis[i] : '-'}</ThemedText>
               </View>
             ))}
           </View>
@@ -204,7 +220,8 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   rewardTable: {
-    width: '100%',
+    width: '90%',
+    alignSelf: 'center',
     borderWidth: 1,
     borderColor: '#ddd',
     borderRadius: 8,
@@ -248,6 +265,23 @@ const styles = StyleSheet.create({
     textShadowOffset: { width: 3, height: 3 },
     textShadowRadius: 4,
     marginBottom: 31,
+  },
+  statusText: {
+    color: 'white',
+    fontSize: 24,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    borderWidth: 1,
+    borderColor: 'white',
+    borderRadius: 8,
+    padding: 10,
+    shadowColor: '#f9ddffb4',
+    shadowOffset: { width: 6, height: 6 },
+    shadowOpacity: 0.9,
+    shadowRadius: 4,
+    elevation: 8,
+    width: '90%',
+    alignSelf: 'center',
   },
   statsContainer: {
     gap: 8,
