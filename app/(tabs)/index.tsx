@@ -121,14 +121,12 @@ export default function HomeScreen() {
           <ThemedText style={styles.heading}>COUNT TO ONE MILLION!</ThemedText>
           <ThemedText style={styles.statusText}>Your current status is {getCurrentStatus().status} {getCurrentStatus().emoji}</ThemedText>
           <ThemedText style={styles.countText}>Count: {total}</ThemedText>
+          <ThemedText style={[styles.percentageText, { marginBottom: 5 }]}>Days since first click: {daysElapsed.toFixed(5)} DAYS</ThemedText>
           <ThemedText style={styles.percentageText}>Average clicks per day: {averageClicks.toFixed(2)} CLICKS</ThemedText>
           <TouchableOpacity onPress={incrementTotal} style={styles.button}>
             <ThemedText style={styles.buttonText}>Add more clicks</ThemedText>
           </TouchableOpacity>
           <ThemedView style={styles.statsContainer}>
-            <ThemedText style={styles.statsText}>
-              Days since first click: {daysElapsed.toFixed(5)} DAYS
-            </ThemedText>
             <ThemedText style={styles.statsText}>
               Percentage of 1 Million: {((total / 1000000) * 100).toFixed(4)} %
             </ThemedText>
