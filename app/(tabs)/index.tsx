@@ -31,10 +31,10 @@ export default function HomeScreen() {
 
   const emojis = ['🌱', '🍎', '🔧', '🛡️', '🪓', '⚔️', '🏰', '👑', '✨', '💫', '🚀', '👽'];
 
-  const thresholds = [1.00, 3.50, 7.00, 10.50, 14.00, 18.50, 21.00, 24.50, 28.00, 31.50, 35.00, 38.50];
+  const thresholds = [100, 350, 700, 1050, 1400, 1850, 2100, 2450, 2800, 3150, 3500, 3850];
 
   const getCurrentStatus = () => {
-    if (averageClicks < 1) {
+    if (averageClicks < thresholds[0]) {
       return { status: "Immigrant", emoji: "🦴" };
     } else {
       for (let i = thresholds.length - 1; i >= 0; i--) {
@@ -121,8 +121,8 @@ export default function HomeScreen() {
           <ThemedText style={styles.heading}>COUNT TO ONE MILLION!</ThemedText>
           <ThemedText style={styles.statusText}>Your current status is {getCurrentStatus().status} {getCurrentStatus().emoji}</ThemedText>
           <ThemedText style={styles.countText}>Count: {total}</ThemedText>
-          <ThemedText style={[styles.percentageText, { marginBottom: 5 }]}>Days since first click: {daysElapsed.toFixed(5)} DAYS</ThemedText>
-          <ThemedText style={styles.percentageText}>Average clicks per day: {averageClicks.toFixed(2)} CLICKS</ThemedText>
+          <ThemedText style={[styles.percentageText, { marginBottom: 10 }]}>Average clicks per day: {averageClicks.toFixed(4)} CLICKS</ThemedText>
+          <ThemedText style={[styles.percentageText, { marginBottom: 8 }]}>Days since first click: {daysElapsed.toFixed(5)} DAYS</ThemedText>
           <TouchableOpacity onPress={incrementTotal} style={styles.button}>
             <ThemedText style={styles.buttonText}>Add more clicks</ThemedText>
           </TouchableOpacity>
@@ -209,7 +209,7 @@ const styles = StyleSheet.create({
   percentageText: {
     color: 'white',
     marginTop: -50,
-    fontSize: 17,
+    fontSize: 18,
     fontWeight: '300',
   },
   rewardText: {
