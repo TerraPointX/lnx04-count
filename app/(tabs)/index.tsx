@@ -31,15 +31,19 @@ export default function HomeScreen() {
 
   const emojis = ['🌱', '🍎', '🔧', '🛡️', '🪓', '⚔️', '🏰', '👑', '✨', '💫', '🚀', '👽'];
 
-  const thresholds = Array.from({ length: 12 }, (_, i) => 50 + i * 10);
+  const thresholds = [1.00, 3.50, 7.00, 10.50, 14.00, 18.50, 21.00, 24.50, 28.00, 31.50, 35.00, 38.50];
 
   const getCurrentStatus = () => {
-    for (let i = thresholds.length - 1; i >= 0; i--) {
-      if (averageClicks >= thresholds[i]) {
-        return { status: statuses[i], emoji: emojis[i] };
+    if (averageClicks < 1) {
+      return { status: "Immigrant", emoji: "🦴" };
+    } else {
+      for (let i = thresholds.length - 1; i >= 0; i--) {
+        if (averageClicks >= thresholds[i]) {
+          return { status: statuses[i], emoji: emojis[i] };
+        }
       }
+      return { status: statuses[0], emoji: emojis[0] };
     }
-    return { status: statuses[0], emoji: emojis[0] };
   };
 
   useEffect(() => {
@@ -117,7 +121,7 @@ export default function HomeScreen() {
           <ThemedText style={styles.heading}>COUNT TO ONE MILLION!</ThemedText>
           <ThemedText style={styles.statusText}>Your current status is {getCurrentStatus().status} {getCurrentStatus().emoji}</ThemedText>
           <ThemedText style={styles.countText}>Count: {total}</ThemedText>
-          <ThemedText style={styles.percentageText}>Percentage of 1 Million: {((total / 1000000) * 100).toFixed(4)} %</ThemedText>
+          <ThemedText style={styles.percentageText}>Average clicks per day: {averageClicks.toFixed(2)} CLICKS</ThemedText>
           <TouchableOpacity onPress={incrementTotal} style={styles.button}>
             <ThemedText style={styles.buttonText}>Add more clicks</ThemedText>
           </TouchableOpacity>
@@ -126,7 +130,7 @@ export default function HomeScreen() {
               Days since first click: {daysElapsed.toFixed(5)} DAYS
             </ThemedText>
             <ThemedText style={styles.statsText}>
-              Average clicks per day: {averageClicks.toFixed(2)} CLICKS
+              Percentage of 1 Million: {((total / 1000000) * 100).toFixed(4)} %
             </ThemedText>
           </ThemedView>
           <View style={styles.rewardTable}>
@@ -135,7 +139,7 @@ export default function HomeScreen() {
               <ThemedText style={styles.rewardCell}>Status</ThemedText>
               <ThemedText style={styles.rewardCell}>Reward</ThemedText>
             </View>
-            {Array.from({ length: 12 }, (_, i) => 50 + i * 10).map((threshold, i) => (
+            {thresholds.map((threshold, i) => (
               <View key={threshold} style={styles.rewardRow}>
                 <ThemedText style={styles.rewardCell}>{threshold}</ThemedText>
                 <ThemedText style={styles.rewardCell}>{statuses[i]}</ThemedText>
@@ -205,7 +209,7 @@ const styles = StyleSheet.create({
     textAlignVertical: 'center',
   },
   percentageText: {
-    color: "#57435fff",
+    color: 'white',
     marginTop: -50,
     fontSize: 17,
     fontWeight: '300',
